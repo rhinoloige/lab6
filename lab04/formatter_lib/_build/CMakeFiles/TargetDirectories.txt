@@ -1,0 +1,3 @@
+/home/rhinoloige/formatter_lib/_build/CMakeFiles/formatter.dir
+/home/rhinoloige/formatter_lib/_build/CMakeFiles/edit_cache.dir
+/home/rhinoloige/formatter_lib/_build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,55 @@
+/////////////////////////////PART1/////////////////////////////////////
+cd ~/formatter_lib
+cat > CMakeLists.txt «EOF
+> cmake_minimum_required(VERSION 3.10) //min vers cmake
+> project(formatter) //proj name
+> set(CMAKE_CXX_STANDARD 11) //set c++11 stand
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> add_library(formatter STATIC \${CMAKE_CURRENT_LIST_DIR}/formatter.cpp)
+> include_directories(\${CMAKE_CURRENT_LIST_DIR}) //headers find
+> EOF
+(cmake -H. -B_build
+cmake —build _build)
+/////////////////////////////PART2/////////////////////////////////////
+cd ~/formatter_ex_lib
+cat > CMakeLists.txt «EOF
+> cmake_minimum_required(VERSION 3.10)
+> project(formatter_ex)
+> set(CMAKE_CXX_STANDARD 11)
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> include(${CMAKE_CURRENT_LIST_DIR}/../formatter_ex_lib/CMakeLists.txt)
+> add_library(formatter_ex STATIC \${CMAKE_CURRENT_LIST_DIR}/formatter_ex.cpp)
+> target_link_libraries(formatter_ex formatter) //linking
+> include_directories(\${CMAKE_CURRENT_LIST_DIR})
+> EOF
+(cmake -H. -B_build
+cmake —build _build)
+/////////////////////////////PART3.1/////////////////////////////////////
+cd hello_world_application
+cat > CMakeLists.txt «EOF
+> cmake_minimum_required(VERSION 3.10)
+> project(hello_world)
+> set(CMAKE_CXX_STANDARD 11)
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> include(${CMAKE_CURRENT_LIST_DIR}/../formatter_ex_lib/CMakeLists.txt)
+> add_executable(hello_world \${CMAKE_CURRENT_LIST_DIR}/hello_world.cpp)
+> target_link_libraries(hello_world formatter_ex_lib)
+> EOF
+cmake -H. -B_build
+cmake —build _build
+/////////////////////////////PART3.2/////////////////////////////////////
+cd solver_application
+cat > CMakeLists.txt «EOF
+> cmake_minimum_required(VERSION 3.10)
+> project(solver)
+> set(CMAKE_CXX_STANDARD 11)
+> set(CMAKE_CXX_STANDARD_REQUIRED ON)
+> include(${CMAKE_CURRENT_LIST_DIR}/../formatter_ex_lib/CMakeLists.txt)
+> add_library(solver_lib STATIC \${CMAKE_CURRENT_LIST_DIR}/../solver_lib/solver.cpp)
+> include_directories(\${CMAKE_CURRENT_LIST_DIR}/../solver_lib)
+> add_executable(solver \${CMAKE_CURRENT_LIST_DIR}/equation.cpp)
+> target_link_libraries(solver formatter_ex_lib solver_lib)
+> EOF
+#errors fix in code
+cmake -H. -B_build
+cmake —build _build
